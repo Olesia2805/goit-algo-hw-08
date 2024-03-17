@@ -17,10 +17,15 @@ def min_cost_to_connect(cable):
     
     heapq.heapify(cable)
     total = 0
+    cost = 0
     
-    while cable:
-        num = heapq.heappop(cable)
-        total += num
+    while len(cable) > 1:
+        num_first = heapq.heappop(cable)
+        num_second  = heapq.heappop(cable)
+        cost = num_first + num_second
+        total += cost
+        
+        heapq.heappush(cable, cost)
 
     return total
 
@@ -31,5 +36,5 @@ if __name__ == "__main__":
     random_cable = [random.randint(1, 50) for _ in range(10)]
     print(f"Min cost for {random_cable}: {min_cost_to_connect(random_cable)}")
 
-    # Min cost for [15, 4, 6, 8, 12]: 45
-    # Min cost for [38, 10, 29, 13, 8, 37, 3, 44, 1, 4]: 187
+    # Min cost for [15, 4, 6, 8, 12]: 100
+    # Min cost for [42, 6, 28, 42, 1, 29, 28, 44, 28, 27]: 866
